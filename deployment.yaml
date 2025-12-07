@@ -1,0 +1,14 @@
+# deployment.yaml
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: v1
+endpoint_name: cw2-endpoint
+model: 
+  path: ./defect_model.pkl  # Use local file instead of registered model
+code_configuration:
+  code: ./src
+  scoring_script: score.py
+environment: 
+  conda_file: src/conda.yaml
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
+instance_type: Standard_F2s_v2
+instance_count: 1

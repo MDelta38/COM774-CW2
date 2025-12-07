@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 import argparse
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -11,10 +12,10 @@ import joblib
 def load_data(data_path):
     df = pd.read_csv(data_path)
     
-    #  validation
-    assert 'DEFECT_LABEL' in df.columns, 
-    assert len(df) > 0, 
-    assert df['DEFECT_LABEL'].nunique() == 2, 
+    # Basic validation
+    assert 'DEFECT_LABEL' in df.columns, "Dataset missing DEFECT_LABEL column"
+    assert len(df) > 0, "Dataset is empty"
+    assert df['DEFECT_LABEL'].nunique() == 2, "DEFECT_LABEL should be binary"
     
     return df
 
@@ -26,7 +27,7 @@ def prepare_features(df):
 
 def split_data(X, y, test_size=0.2, random_state=42):
     
-    return train_test_split( #I decided to use random_state=42 for reproducibilty, the mean accuracy is around 70%
+    return train_test_split( 
         X, y, 
         test_size=test_size, 
         random_state=random_state, 
@@ -118,9 +119,17 @@ def main():
     
     log_to_mlflow(model, params, metrics, feature_importance)
     
-    # Save model locally
+    ## Create outputs folder (Azure ML looks here)
+    os.makedirs('outputs/model', exist_ok=True)
+    
+    # Save model with the EXACT name defect_model.pkl
+    joblib.dump(model, 'outputs/model/defect_model.pkl')
+    
+    # Also save locally for testing
     joblib.dump(model, 'defect_model.pkl')
-    print(f"\n✅ Model saved as 'defect_model.pkl'")
+    
+    print("✅ Model saved to outputs/model/defect_model.pkl for Azure ML")
+    print("✅ Model saved to defect_model.pkl locally")
     
     mlflow.end_run()
 

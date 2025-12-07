@@ -1,0 +1,18 @@
+How to run Azure job submission of anything, first select the yaml which corresponds to the py
+
+az ml job create --file job_final.yaml --resource-group CW2 --workspace-name CW2
+
+C:/Users/Mark Agirin/Desktop/CA1/.venv/Scripts/python.exe" "c:/Users/Mark Agirin/Desktop/CA1/CW2/src/unitTest.py"
+Gives a jot to individual modules and runs any given script
+
+To commit shit
+git add .\src\unitTest.py
+git commit -m "unitTest hopefully final version"
+it push -u origin main
+USE SSH verification always
+ssh-keygen -t ed25519 -C "Agirin-M@ulster.ac.uk"
+git remote set-url origin git@github.com:MDelta38/COM774-CW2.git
+
+
+How to start the MLFlow server in Powershell
+docker run --rm -p 8080:8080 -v ${PWD}/mlruns:/mlflow `  ghcr.io/mlflow/mlflow:v2.0.1 `  mlflow server --host 0.0.0.0 --port 8080 ` --backend-store-uri sqlite:///mlflow.db ` --default-artifact-root /mlflow
