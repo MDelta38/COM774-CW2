@@ -1,0 +1,17 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+
+code: .
+command: python trainModel.py --data_path ${{inputs.data_path}}
+
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1  # Make sure this is your dataset name
+
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/14
+
+compute: azureml:CW2-Compute
+
+experiment_name: defect-prediction-cw2
+display_name: defect-prediction-job
+description: "Training Random Forest model for software defect prediction"

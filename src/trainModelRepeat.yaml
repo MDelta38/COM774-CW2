@@ -1,0 +1,18 @@
+# job_sweep_simple.yaml
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+
+code: .
+command: python trainModelRepeat.py --data_path ${{inputs.data_path}}
+
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1
+
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/14
+
+compute: azureml:CW2-Compute
+
+experiment_name: defect-ratio-sweep-cw2
+display_name: defect-ratio-sweep-simple
+description: "Testing different defect ratios (20-80%) for accuracy"

@@ -1,0 +1,11 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: .
+command: python trainModelBaseline.py --data_path ${{inputs.data_path}} --model_type rf --run_version baseline
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/14
+compute: azureml:CW2-Compute
+experiment_name: defect-prediction-cw2
+display_name: baseline-rf-v1

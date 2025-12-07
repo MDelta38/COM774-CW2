@@ -1,0 +1,18 @@
+# job_final_model.yaml
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+
+code: .
+command: python finalModel.py --data_path ${{inputs.data_path}}
+
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1
+
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/14
+
+compute: azureml:CW2-Compute
+
+experiment_name: final-deployment-model-cw2
+display_name: final-model-500trees-40ratio
+description: "Final deployment model: 500 trees, depth 20, 40/60 defect ratio 70^%"

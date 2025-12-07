@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Dataset files (if large)
+*.csv
+*.pkl
+*.joblib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

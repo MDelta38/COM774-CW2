@@ -1,0 +1,18 @@
+# job_simple_tune.yaml
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+
+code: .
+command: python trainModelTrees.py --data_path ${{inputs.data_path}}
+
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1
+
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/14
+
+compute: azureml:CW2-Compute
+
+experiment_name: defect-model-tuning-cw2
+display_name: simple-hyperparameter-tuning
+description: "Testing different n_estimators values on 50/50 data"

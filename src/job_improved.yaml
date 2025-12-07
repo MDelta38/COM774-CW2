@@ -1,0 +1,11 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: .
+command: python trainModel.py --data_path ${{inputs.data_path}} --model_type rf --run_version enhanced_v2
+inputs:
+  data_path:
+    type: uri_file
+    path: azureml:dataset:1
+environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:1
+compute: azureml:CW2-Compute
+experiment_name: defect-prediction-cw2
+display_name: enhanced-rf-v2
